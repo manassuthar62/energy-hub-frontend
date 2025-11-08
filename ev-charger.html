@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EV Charger - ESI Electricity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --text: #1e293b;
+            --background: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(130deg, #e0e7ff 0%, #c3f0e0 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-weight: 700;
+            position: relative;
+            padding: 8px;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .logo i {
+            font-size: 2.2em;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-glow 2s infinite;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .company-name {
+            font-size: 1.8em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .company-tagline {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text);
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin: 0 10px;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        @keyframes pulse-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(37,99,235,0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px rgba(37,99,235,0.5));
+            }
+        }
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 120px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?electric-car,charging');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(37,99,235,0.2) 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+        .hero-section h1 {
+            color: white;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        .hero-section p {
+            font-size: 1.2em;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+            margin-bottom: 30px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--glass-shadow);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.3; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        .feature-card h3 {
+            color: #336699;
+            margin-top: 0;
+        }
+        .charger-types {
+            margin-top: 60px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        .charger-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+        .charger-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+        .charger-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px var(--glass-shadow);
+        }
+        .cta-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 60px 40px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 16px 35px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37,99,235,0.2);
+        }
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        .pricing-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+        }
+        .pricing-table th, .pricing-table td {
+            padding: 16px;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .pricing-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+        .pricing-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        @media (max-width: 800px) {
+            .navbar { padding: 14px 6%; }
+            .hero-section h1 { font-size: 2em; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="adani.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                <div class="logo-text">
+                    <span class="company-name">ESI</span>
+                    <span class="company-tagline">Electricity</span>
+                </div>
+            </a>
+            <nav>
+                <a href="adani.html">Home</a>
+                <a href="ev-charger.html" class="active">EV Charger</a>
+                <a href="bills-payments.html">Bills & Payments</a>
+                <a href="connections.html">Connections</a>
+                <a href="services.html">Services</a>
+                <a href="support.html">Support</a>
+                <a href="information.html">Information</a>
+                <a href="login.html">Login/Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>EV Charging Solutions</h1>
+            <p>Power your electric vehicle with our state-of-the-art charging infrastructure</p>
+        </section>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Fast Charging</h3>
+                <p>Get back on the road quickly with our DC fast charging stations that can charge up to 80% in just 30 minutes.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Wide Network</h3>
+                <p>Access our extensive network of charging stations across the city, conveniently located at key locations.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Smart Features</h3>
+                <p>Monitor charging status, make payments, and locate stations through our mobile app.</p>
+            </div>
+        </div>
+
+        <section class="charger-types">
+            <h2>Available Charger Types</h2>
+            <div class="charger-grid">
+                <div class="charger-card">
+                    <h3>AC Type 2</h3>
+                    <p>Standard charging up to 22kW</p>
+                    <ul>
+                        <li>Compatible with most EVs</li>
+                        <li>Ideal for overnight charging</li>
+                        <li>Lower cost per kWh</li>
+                    </ul>
+                </div>
+                <div class="charger-card">
+                    <h3>DC Fast Charger</h3>
+                    <p>Rapid charging up to 50kW</p>
+                    <ul>
+                        <li>80% charge in 30 minutes</li>
+                        <li>CCS & CHAdeMO compatible</li>
+                        <li>Best for quick top-ups</li>
+                    </ul>
+                </div>
+                <div class="charger-card">
+                    <h3>Ultra-Fast DC</h3>
+                    <p>High-power charging up to 150kW</p>
+                    <ul>
+                        <li>Future-proof charging</li>
+                        <li>Minimal waiting time</li>
+                        <li>Premium charging experience</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h2>Charging Rates</h2>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Charger Type</th>
+                            <th>Power Output</th>
+                            <th>Rate (per kWh)</th>
+                            <th>Typical Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AC Type 2</td>
+                            <td>Up to 22kW</td>
+                            <td>₹8/kWh</td>
+                            <td>6-8 hours</td>
+                        </tr>
+                        <tr>
+                            <td>DC Fast Charger</td>
+                            <td>50kW</td>
+                            <td>₹12/kWh</td>
+                            <td>30-60 minutes</td>
+                        </tr>
+                        <tr>
+                            <td>Ultra-Fast DC</td>
+                            <td>150kW</td>
+                            <td>₹15/kWh</td>
+                            <td>15-30 minutes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Start Charging?</h2>
+            <p>Download our app to locate charging stations, track your charging sessions, and make payments.</p>
+            <a href="#" class="cta-button">Download App</a>
+        </section>
+    </main>
+
+    <footer>
+        <p style="text-align:center;color:#333;opacity:0.8">&copy; 2025 ESI Electricity</p>
+    </footer>
+</body>
+</html>

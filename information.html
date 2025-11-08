@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Information - ESI Electricity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --text: #1e293b;
+            --background: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(130deg, #e0e7ff 0%, #c3f0e0 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-weight: 700;
+            position: relative;
+            padding: 8px;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .logo i {
+            font-size: 2.2em;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-glow 2s infinite;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .company-name {
+            font-size: 1.8em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .company-tagline {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text);
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        @keyframes pulse-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(37,99,235,0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px rgba(37,99,235,0.5));
+            }
+        }
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+            animation: fadeIn 1s ease-out;
+        }
+        .hero-section h1 {
+            color: var(--primary);
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        .hero-section p {
+            color: var(--text);
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px var(--glass-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px var(--glass-shadow);
+        }
+        .info-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-weight: 600;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .tariff-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .tariff-table th,
+        .tariff-table td {
+            padding: 16px;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .tariff-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-size: 1.05em;
+        }
+        .tariff-table tr:last-child td {
+            border-bottom: none;
+        }
+        .tariff-table tr {
+            transition: background-color 0.3s ease;
+        }
+        .tariff-table tr:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .tariff-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .tariff-table tr:nth-child(even):hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .notice-board {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            margin-top: 30px;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .notice-item {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .notice-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+        .notice-date {
+            color: var(--primary);
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .notice-item h4 {
+            color: var(--text);
+            margin: 8px 0;
+            font-size: 1.1em;
+        }
+        .notice-item p {
+            color: var(--text);
+            opacity: 0.8;
+            margin: 0;
+        }
+        .download-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 24px;
+            margin-top: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .download-section h2 {
+            color: var(--primary);
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .download-card {
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px var(--glass-shadow);
+        }
+        .download-card h3 {
+            color: var(--text);
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+        .download-card p {
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+        .download-btn i {
+            font-size: 1.2em;
+        }
+        .energy-tips {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .energy-tips h2 {
+            color: var(--primary);
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tip-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .tip-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px var(--glass-shadow);
+        }
+        .tip-card i {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tip-card h3 {
+            color: var(--text);
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        .tip-card p {
+            color: var(--text);
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-section {
+                padding: 40px 20px;
+                margin: 20px 10px;
+            }
+            .hero-section h1 {
+                font-size: 2em;
+            }
+            .info-grid,
+            .download-grid,
+            .tip-grid {
+                grid-template-columns: 1fr;
+            }
+            .download-section,
+            .energy-tips {
+                padding: 30px 20px;
+                margin: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                <div class="logo-text">
+                    <span class="company-name">PayConnect</span>
+                    <span class="company-tagline">Smart Energy Solutions</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="bills-payments.html">Bills & Payments</a>
+                <a href="services.html">Services</a>
+                <a href="connections.html">Connections</a>
+                <a href="ev-charger.html">EV Charger</a>
+                <a href="support.html">Support</a>
+                <a href="information.html" class="active">Information</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>Information Center</h1>
+            <p>Stay informed about our services, tariffs, and important updates</p>
+        </section>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Current Tariff Rates</h3>
+                <table class="tariff-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Units (kWh)</th>
+                            <th>Rate (₹/unit)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">Residential</td>
+                            <td>0-100</td>
+                            <td>3.50</td>
+                        </tr>
+                        <tr>
+                            <td>101-300</td>
+                            <td>4.50</td>
+                        </tr>
+                        <tr>
+                            <td>>300</td>
+                            <td>6.50</td>
+                        </tr>
+                        <tr>
+                            <td>Commercial</td>
+                            <td>All units</td>
+                            <td>8.00</td>
+                        </tr>
+                        <tr>
+                            <td>Industrial</td>
+                            <td>All units</td>
+                            <td>7.50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Important Notices</h3>
+                <div class="notice-board">
+                    <div class="notice-item">
+                        <div class="notice-date">November 8, 2025</div>
+                        <h4>Scheduled Maintenance</h4>
+                        <p>Planned maintenance work in Sector 16 on November 10, 2025, from 10 AM to 2 PM.</p>
+                    </div>
+                    <div class="notice-item">
+                        <div class="notice-date">November 5, 2025</div>
+                        <h4>New Online Bill Payment Feature</h4>
+                        <p>We've launched a new secure payment gateway for easier bill payments.</p>
+                    </div>
+                    <div class="notice-item">
+                        <div class="notice-date">November 1, 2025</div>
+                        <h4>Winter Energy Saving Tips</h4>
+                        <p>Check out our latest guide on reducing electricity consumption during winter.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="download-section">
+            <h2>Downloads</h2>
+            <div class="download-grid">
+                <div class="download-card">
+                    <h3>Application Forms</h3>
+                    <p>New connection, name transfer, and other forms</p>
+                    <a href="#" class="download-btn">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                </div>
+                <div class="download-card">
+                    <h3>User Manual</h3>
+                    <p>Guide for using our online services</p>
+                    <a href="#" class="download-btn">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                </div>
+                <div class="download-card">
+                    <h3>Safety Guidelines</h3>
+                    <p>Electrical safety measures and precautions</p>
+                    <a href="#" class="download-btn">
+                        <i class="fas fa-download"></i> Download PDF
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="energy-tips">
+            <h2>Energy Saving Tips</h2>
+            <div class="tip-grid">
+                <div class="tip-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Lighting</h3>
+                    <ul>
+                        <li>Switch to LED bulbs</li>
+                        <li>Use natural light during day</li>
+                        <li>Install motion sensors</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-temperature-low"></i>
+                    <h3>Cooling</h3>
+                    <ul>
+                        <li>Set AC at 24°C</li>
+                        <li>Regular maintenance</li>
+                        <li>Use energy-efficient models</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <i class="fas fa-plug"></i>
+                    <h3>Appliances</h3>
+                    <ul>
+                        <li>Unplug when not in use</li>
+                        <li>Use during off-peak hours</li>
+                        <li>Choose star-rated appliances</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p style="text-align:center;color:#333;opacity:0.8">&copy; 2025 ESI Electricity</p>
+    </footer>
+</body>
+</html>

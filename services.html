@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Services - ESI Electricity</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --text: #1e293b;
+            --background: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(130deg, #e0e7ff 0%, #c3f0e0 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-weight: 700;
+            position: relative;
+            padding: 8px;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .logo i {
+            font-size: 2.2em;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-glow 2s infinite;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .company-name {
+            font-size: 1.8em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .company-tagline {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text);
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            opacity: 0.9;
+            margin: 0 10px;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        @keyframes pulse-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(37,99,235,0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px rgba(37,99,235,0.5));
+            }
+        }
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 120px 20px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?electricity-service,power');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(37,99,235,0.2) 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+        .hero-section h1 {
+            color: white;
+            font-size: 3.5em;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        .service-icon {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+        }
+        .service-icon i {
+            font-size: 3em;
+            color: #336699;
+        }
+        .service-content {
+            padding: 25px;
+        }
+        .service-content h3 {
+            color: #336699;
+            margin: 0 0 15px 0;
+        }
+        .service-content p {
+            margin: 0 0 20px 0;
+            color: #666;
+        }
+        .service-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #336699;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .service-link:hover {
+            background: #245580;
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+        .features-list li {
+            padding: 8px 0;
+            color: #555;
+        }
+        .features-list li i {
+            color: #28a745;
+            margin-right: 10px;
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 14px 6%; }
+            .hero-section h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="adani.html" class="logo">
+                <i class="fas fa-bolt"></i>
+                <div class="logo-text">
+                    <span class="company-name">ESI</span>
+                    <span class="company-tagline">Electricity</span>
+                </div>
+            </a>
+            <nav>
+                <a href="adani.html">Home</a>
+                <a href="ev-charger.html">EV Charger</a>
+                <a href="bills-payments.html">Bills & Payments</a>
+                <a href="connections.html">Connections</a>
+                <a href="services.html" class="active">Services</a>
+                <a href="support.html">Support</a>
+                <a href="information.html">Information</a>
+                <a href="login.html">Login/Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1>Our Services</h1>
+            <p>Comprehensive electrical solutions for all your needs</p>
+        </section>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <div class="service-content">
+                    <h3>New Connection</h3>
+                    <p>Get a new electricity connection for your home or business</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>Quick processing</li>
+                        <li><i class="fas fa-check"></i>Online application</li>
+                        <li><i class="fas fa-check"></i>Document assistance</li>
+                    </ul>
+                    <a href="#" class="service-link">Apply Now</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Maintenance & Repair</h3>
+                    <p>Professional maintenance and repair services</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>24/7 emergency service</li>
+                        <li><i class="fas fa-check"></i>Expert technicians</li>
+                        <li><i class="fas fa-check"></i>Quick response time</li>
+                    </ul>
+                    <a href="#" class="service-link">Request Service</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Name Transfer</h3>
+                    <p>Transfer electricity connection to a new name</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>Simple process</li>
+                        <li><i class="fas fa-check"></i>Minimal documentation</li>
+                        <li><i class="fas fa-check"></i>Quick approval</li>
+                    </ul>
+                    <a href="#" class="service-link">Transfer Now</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-solar-panel"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Solar Solutions</h3>
+                    <p>Switch to sustainable solar energy solutions</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>Expert consultation</li>
+                        <li><i class="fas fa-check"></i>Installation service</li>
+                        <li><i class="fas fa-check"></i>Maintenance support</li>
+                    </ul>
+                    <a href="#" class="service-link">Learn More</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Load Enhancement</h3>
+                    <p>Increase your electricity load capacity</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>Free assessment</li>
+                        <li><i class="fas fa-check"></i>Quick upgrades</li>
+                        <li><i class="fas fa-check"></i>Professional service</li>
+                    </ul>
+                    <a href="#" class="service-link">Upgrade Now</a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="service-content">
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer support services</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>Instant response</li>
+                        <li><i class="fas fa-check"></i>Expert assistance</li>
+                        <li><i class="fas fa-check"></i>Multiple channels</li>
+                    </ul>
+                    <a href="#" class="service-link">Contact Support</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p style="text-align:center;color:#333;opacity:0.8">&copy; 2025 ESI Electricity</p>
+    </footer>
+</body>
+</html>

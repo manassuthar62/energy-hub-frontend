@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login/Register - EnergyHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/utilities.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --text: #1e293b;
+            --background: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(130deg, #e0e7ff 0%, #c3f0e0 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 30px var(--glass-shadow);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-weight: 700;
+            position: relative;
+            padding: 8px;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        .logo i {
+            font-size: 2.2em;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse-glow 2s infinite;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .company-name {
+            font-size: 1.8em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .company-tagline {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--text);
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+        @keyframes pulse-glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(37,99,235,0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 12px rgba(37,99,235,0.5));
+            }
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+        .auth-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 30px var(--glass-shadow);
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px var(--glass-shadow);
+        }
+        .auth-card h2 {
+            color: var(--primary);
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        .form-group input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .form-group input::placeholder {
+            color: rgba(30, 41, 59, 0.6);
+        }
+        .form-group i {
+            position: absolute;
+            right: 15px;
+            top: 45px;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+        .password-field {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .submit-btn:hover::after {
+            opacity: 1;
+        }
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        .auth-links {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.95em;
+        }
+        .auth-links a {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .auth-links a:hover {
+            color: var(--secondary);
+        }
+        .auth-links a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .auth-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .social-login {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1em;
+            color: var(--text);
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--glass-shadow);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .social-btn i {
+            font-size: 1.2em;
+        }
+        .social-btn.google {
+            color: #db4437;
+            border: 1px solid rgba(219, 68, 55, 0.3);
+        }
+        .social-btn.facebook {
+            color: #4267B2;
+            border: 1px solid rgba(66, 103, 178, 0.3);
+        }
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+        }
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .or-divider span {
+            padding: 0 15px;
+            color: var(--text);
+            font-size: 0.9em;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            backdrop-filter: blur(4px);
+        }
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .navbar { padding: 14px 6%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-plug"></i>
+                <div class="logo-text">
+                    <span class="company-name">EnergyHub</span>
+                    <span class="company-tagline">Powering Tomorrow</span>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="bills-payments.html">Bills & Payments</a>
+                <a href="services.html">Services</a>
+                <a href="connections.html">Connections</a>
+                <a href="ev-charger.html">EV Charger</a>
+                <a href="support.html">Support</a>
+                <a href="information.html">Information</a>
+                <a href="login.html" class="active">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="auth-container">
+            <!-- Login Form -->
+            <div class="auth-card" id="login-form">
+                <h2>Login to Your Account</h2>
+                <form onsubmit="return handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="login-email" name="email" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper password-field">
+                            <input type="password" id="login-password" name="password" required>
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('login-password')"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Login</button>
+                    <div class="auth-links">
+                        <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                    </div>
+                    <div class="or-divider">
+                        <span>OR</span>
+                    </div>
+                    <div class="social-login">
+                        <button type="button" class="social-btn google">
+                            <i class="fab fa-google"></i> Continue with Google
+                        </button>
+                        <button type="button" class="social-btn facebook">
+                            <i class="fab fa-facebook"></i> Continue with Facebook
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-card" id="register-form">
+                <h2>Create New Account</h2>
+                <form onsubmit="return handleRegister(event)">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="register-name" name="name" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="register-email" name="email" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-phone">Phone Number</label>
+                        <div class="input-wrapper">
+                            <input type="tel" id="register-phone" name="phone" pattern="[0-9]{10}" required>
+                            <i class="fas fa-phone"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <div class="input-wrapper password-field">
+                            <input type="password" id="register-password" name="password" required>
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('register-password')"></i>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password">Confirm Password</label>
+                        <div class="input-wrapper password-field">
+                            <input type="password" id="register-confirm-password" name="confirm-password" required>
+                            <i class="fas fa-eye password-toggle" onclick="togglePassword('register-confirm-password')"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p style="text-align:center;color:var(--text);opacity:0.8;margin:20px 0;font-size:0.9em">&copy; 2025 EnergyHub. All rights reserved.</p>
+    </footer>
+
+    <div class="spinner-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/utilities.js"></script>
+    <script>
+        // Initialize session handler
+        document.addEventListener('DOMContentLoaded', () => {
+            sessionHandler.init();
+        });
+
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('login-email');
+            const passwordInput = document.getElementById('login-password');
+            
+            // Validate inputs
+            const isEmailValid = formValidation.validateInput(emailInput, 'email');
+            const isPasswordValid = formValidation.validateInput(passwordInput, 'password');
+            
+            if (!isEmailValid || !isPasswordValid) {
+                return false;
+            }
+            
+            try {
+                const response = await apiHandler.post('/auth/login', {
+                    email: emailInput.value,
+                    password: passwordInput.value
+                });
+                
+                // Store user data and update UI
+                sessionHandler.login(response.user);
+                
+                showToast('success', 'Login successful! Redirecting...');
+                
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+                
+            } catch (error) {
+                showToast('error', error.message || 'Login failed. Please try again.');
+            }
+            
+            return false;
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('register-name');
+            const emailInput = document.getElementById('register-email');
+            const phoneInput = document.getElementById('register-phone');
+            const passwordInput = document.getElementById('register-password');
+            const confirmPasswordInput = document.getElementById('register-confirm-password');
+            
+            // Validate all inputs
+            const isNameValid = formValidation.validateInput(nameInput, 'name');
+            const isEmailValid = formValidation.validateInput(emailInput, 'email');
+            const isPhoneValid = formValidation.validateInput(phoneInput, 'phone');
+            const isPasswordValid = formValidation.validateInput(passwordInput, 'password');
+            
+            if (!isNameValid || !isEmailValid || !isPhoneValid || !isPasswordValid) {
+                return false;
+            }
+            
+            // Check password confirmation
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                formValidation.showError(confirmPasswordInput, 'Passwords do not match');
+                return false;
+            }
+            
+            try {
+                const response = await apiHandler.post('/auth/register', {
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    password: passwordInput.value
+                });
+                
+                showToast('success', 'Registration successful! Please log in.');
+                
+                // Clear form and switch to login view after a delay
+                setTimeout(() => {
+                    event.target.reset();
+                    // Add logic here to switch to login form if needed
+                }, 1500);
+                
+            } catch (error) {
+                showToast('error', error.message || 'Registration failed. Please try again.');
+            }
+            
+            return false;
+        }
+
+        async function showForgotPassword() {
+            const email = prompt('Enter your email address:');
+            if (!email) return;
+            
+            if (!formValidation.patterns.email.test(email)) {
+                showToast('error', 'Please enter a valid email address');
+                return;
+            }
+            
+            try {
+                await apiHandler.post('/auth/forgot-password', { email });
+                showToast('success', 'Password reset instructions have been sent to your email');
+            } catch (error) {
+                showToast('error', error.message || 'Failed to send reset instructions');
+            }
+        }
+    </script>
+</body>
+</html>
